@@ -7,11 +7,11 @@ import Stories from "./Stories"
 const Search = () => {
 
 
-    const initialGETURL = 'http://hn.algolia.com/api/v1/search_by_date?query=...';
+    const initialGETURL = 'http://hn.algolia.com/api/v1/search_by_date?tags=story';
 
     const [searchValue, setSearchValue] = useState('test')
     const [searchHistory, setSearchHistory] = useState();
-    const [stories, setStories] = useState();
+    const [stories, setStories] = useState([]);
 
 
     function handleClick() {
@@ -35,23 +35,28 @@ const Search = () => {
 
     async function getStories() {
        
-
-        return await axios.get(initialGETURL);
+        try {
+            const response = await axios.get(initialGETURL);
+            console.log('response hits', response.data.hits);
+            setStories(response.data.hits);
+            console.log('set stories is', stories);
+            
+        }
+       
+        catch (e) {
+            throw new Error('api call did not work');
+        }
       
     }
-
 
     //initial unsearched news
     useEffect(() => {
 
-        axios.get(initialGETURL).then((response)=>{
-            setStories(response.data);
-            console.log(response.data);
-        })
+        getStories();
        
     }, [])
 
-
+    
 
     return (
 
@@ -60,9 +65,12 @@ const Search = () => {
         <div className='search-container'>
             <input className='search-input' placeholder='What are you looking for?' value={searchValue} onChange={handleChange}></input>
             <button className='search-button' onClick={handleClick}>Search</button>
-
-            <Stories></Stories>
             
+            
+        </div>
+
+        <div className='stories-container'>
+           <Stories storyArr={stories}></Stories>
         </div>
 
 
