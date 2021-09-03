@@ -30,7 +30,23 @@ const Search = () => {
 
     }
 
-    async function getStories(searchTerm) {
+    async function getInitStories() {
+       
+  
+        try {
+            const response = await axios.get(initialGETURL);
+            setStories(response.data.hits);
+
+        }
+        
+        catch (e) {
+            throw new Error('api call did not work');
+        }
+
+      
+    }
+    //trying to stay faithful to no 
+    async function getQueriedStories(searchTerm) {
        
         if (searchTerm) {
             console.log('theres a search term');
@@ -44,24 +60,7 @@ const Search = () => {
                 throw new Error('api call did not work');
             }
 
-
         }
-
-        else {
-
-            try {
-                const response = await axios.get(initialGETURL);
-                setStories(response.data.hits);
-  
-            }
-           
-            catch (e) {
-                throw new Error('api call did not work');
-            }
-
-        }
-    
-      
     }
 
     //initial unsearched news
@@ -69,8 +68,8 @@ const Search = () => {
         
         clearTimeout(debounceHandler);
         debounceHandler = setTimeout(() => {
-            getStories(searchValue);
-            setSearchHistory((prevState) => ([...prevState, searchValue]));
+            getQueriedStories(searchValue);
+            setSearchHistory((prevState) => (prevState.filter((term) => ([...prevState, searchValue]));
             console.log('search history is', searchHistory);
             
         }, 1000)
