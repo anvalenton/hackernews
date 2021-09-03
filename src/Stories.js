@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 
 const Stories = ({storyArr}) => {
 
-console.log('story arr is', storyArr)
 
 return (
 
@@ -12,7 +11,7 @@ return (
         {storyArr.map((story) => {
             if (story.url) {
 
-            return  <li>
+            return  <li key={story.title+story.author}>
                     <div className='title-div'>
                     <a href={story.url}>{story.title}</a><span className='author'> by {story.author}</span>
                     </div>

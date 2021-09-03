@@ -9,22 +9,19 @@ const Search = () => {
 
     const initialGETURL = 'http://hn.algolia.com/api/v1/search_by_date?tags=story';
 
-    const [searchValue, setSearchValue] = useState('test')
-    const [searchHistory, setSearchHistory] = useState();
+
+
+    const [searchValue, setSearchValue] = useState('');
+    const [searchHistory, setSearchHistory] = useState([]);
     const [stories, setStories] = useState([]);
 
+   let debounceHandler = null;
 
-    function handleClick() {
-
-        //do api call
-        //store search in local storage
-
-    }
+ 
 
     function handleChange(evt) {
 
         setSearchValue(evt.target.value)
-
     }
 
     function saveToStorage(searchTerm, searchResults) {
@@ -33,38 +30,69 @@ const Search = () => {
 
     }
 
-    async function getStories() {
+    async function getStories(searchTerm) {
        
-        try {
-            const response = await axios.get(initialGETURL);
-            console.log('response hits', response.data.hits);
-            setStories(response.data.hits);
-            console.log('set stories is', stories);
-            
+        if (searchTerm) {
+            console.log('theres a search term');
+            try {
+
+                const searchRes = await axios.get(`http://hn.algolia.com/api/v1/search?query=${searchTerm}&tags=story`)
+                setStories(searchRes.data.hits);
+
+            }
+            catch (e) {
+                throw new Error('api call did not work');
+            }
+
+
         }
-       
-        catch (e) {
-            throw new Error('api call did not work');
+
+        else {
+
+            try {
+                const response = await axios.get(initialGETURL);
+                setStories(response.data.hits);
+  
+            }
+           
+            catch (e) {
+                throw new Error('api call did not work');
+            }
+
         }
+    
       
     }
 
     //initial unsearched news
     useEffect(() => {
-
-        getStories();
-       
-    }, [])
-
+        
+        clearTimeout(debounceHandler);
+        debounceHandler = setTimeout(() => {
+            getStories(searchValue);
+            setSearchHistory((prevState) => ([...prevState, searchValue]));
+            console.log('search history is', searchHistory);
+            
+        }, 1000)
     
+        return () => {
+            clearTimeout(debounceHandler);
+        }
+     
+    }, [searchValue])
+
+
 
     return (
 
         <>
 
         <div className='search-container'>
-            <input className='search-input' placeholder='What are you looking for?' value={searchValue} onChange={handleChange}></input>
-            <button className='search-button' onClick={handleClick}>Search</button>
+            <form>
+                <label htmlFor='searchInput'></label>
+                <input className='search-input' placeholder='What are you looking for?' value={searchValue} onChange={handleChange}></input>
+              
+            </form>
             
             
         </div>
