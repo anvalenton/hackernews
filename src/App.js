@@ -1,11 +1,24 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Search from './Search.js';
+import History from './History';
+import {BrowserRouter, Route} from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <Search />
+      <BrowserRouter>
+        <Route path='/search/:query'>
+          <Search />
+        </Route>
+        <Route exact path='/history'>
+          <History />
+        </Route>
+        <Route exact path='/'>
+          <Search />
+        </Route>
+        
+      </BrowserRouter>
     </div>
   );
 }
