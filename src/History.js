@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {v4 as uuidv4} from 'uuid';
 import {NavLink} from 'react-router-dom';
 
@@ -7,15 +7,12 @@ import {NavLink} from 'react-router-dom';
 const History = () => {
 
     const storedSearchQueries = window.localStorage.getItem('searches');
-    console.log('storedsearchqueries', storedSearchQueries)
-    let searchArr = storedSearchQueries? storedSearchQueries.split(',') : null;
-    console.log('search arr is', searchArr)
-    // console.log('search array', searchArr);
+    const searchArr = storedSearchQueries? storedSearchQueries.split(',') : null;
 
     if (searchArr) {
         return (
             <> 
-               <NavLink to='/'>Home</NavLink>
+              
                <div className='searchhistory-container'>
                     <ul>
                     {searchArr.map((search) => (
@@ -40,8 +37,8 @@ const History = () => {
         return (
 
             <div>
-                <NavLink to='/'>Home</NavLink>
-                No history
+               
+                <div className='nohistorytext-container'>No history</div>
             </div>
         )
     }

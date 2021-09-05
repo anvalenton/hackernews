@@ -2,12 +2,14 @@
 import './App.css';
 import Search from './Search.js';
 import History from './History';
+import Nav from './Nav';
 import {BrowserRouter, Route} from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Nav></Nav>
         <Route path='/search/:query'>
           <Search />
         </Route>
