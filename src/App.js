@@ -13,6 +13,9 @@ function App() {
         <Route path='/search/:query'>
           <Search />
         </Route>
+        <Route path='/search'>
+          <Search />
+        </Route>
         <Route exact path='/history'>
           <History />
         </Route>
