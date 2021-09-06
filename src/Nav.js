@@ -12,7 +12,7 @@ const Nav = () => {
             <NavLink className='navlink' isActive={() => (pathname.includes('/search') || pathname === '/' || pathname ==='/hackernews')} exact to='/search'>SEARCH</NavLink>
             </div>
             <div className='navlink-container'>
-            <NavLink className='navlink' exact to='hackernews/history'>HISTORY</NavLink>
+            <NavLink className='navlink' exact to='/history'>HISTORY</NavLink>
             </div>
             
 
