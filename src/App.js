@@ -22,7 +22,7 @@ function App() {
         <Route exact path='/'>
           <Redirect to="/search" />
         </Route>
-        <Search />
+       
       </BrowserRouter>
     </div>
   );
