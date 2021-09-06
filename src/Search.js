@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import Stories from "./Stories"
 import { useParams} from "react-router-dom";
@@ -11,11 +11,11 @@ const Search = () => {
     const initialGETURL = 'http://hn.algolia.com/api/v1/search_by_date?tags=story';
 
     const {query} = useParams();
-    const [searchValue, setSearchValue] = useState(query);
+    const [searchValue, setSearchValue] = useState(() => (query? query: ''));
     const [searchHistory, setSearchHistory] = useState([]);
     const [stories, setStories] = useState([]);
    
-    let debounceHandler = null;
+    let debounceHandler = useRef(null);
 
 
     async function getStories(searchTerm) {
@@ -48,10 +48,10 @@ const Search = () => {
         let lastSearched = searchHistory[searchHistory.length-1];
         if (searchValue && searchValue !== lastSearched ) {
           
-            clearTimeout(debounceHandler);
-            debounceHandler = setTimeout(() => {
+            clearTimeout(debounceHandler.current);
+            debounceHandler.current = setTimeout(() => {
                 getStories(searchValue);
-                setSearchHistory((prevState) => ([...new Set([...prevState, searchValue])]));
+                setSearchHistory((prevState) => ([...new Set([searchValue, ...prevState])]));
              
             }, 400)
         
@@ -64,7 +64,7 @@ const Search = () => {
             getStories();
         }
 
-    }, [searchValue])
+    }, [searchValue, searchHistory])
 
     useEffect(() => {
 

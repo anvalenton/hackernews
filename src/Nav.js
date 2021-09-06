@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
-import {NavLink} from 'react-router-dom';
+import React from "react";
+import {NavLink, useLocation} from 'react-router-dom';
 
 const Nav = () => {
 
 
-
-
+    const {pathname} = useLocation();
 
     return (
-        <nav>
-            <NavLink exact to='/'>Search</NavLink>
-            <NavLink exact to='/history'>History</NavLink>
+        <nav className='nav'>
+            <div className='navlink-container'>
+            <NavLink className='navlink' isActive={() => (pathname.includes('/search') || pathname === '/')}exact to='/'>SEARCH</NavLink>
+            </div>
+            <div className='navlink-container'>
+            <NavLink className='navlink' exact to='/history'>HISTORY</NavLink>
+            </div>
+            
 
         </nav>
 

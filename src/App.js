@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Nav></Nav>
+        <Nav />
         <Route path='/search/:query'>
           <Search />
         </Route>

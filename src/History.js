@@ -19,7 +19,7 @@ const History = () => {
                     
                         <li key={uuidv4()}>
                         <div className='pastsearch-div'>
-                            <NavLink to={`/search/${search}`}>{search}</NavLink>
+                            <NavLink to={`/search/${search}`} activeClassName={'active'}>{search}</NavLink>
                         </div>
                         </li>
                     ))}
@@ -38,7 +38,7 @@ const History = () => {
 
             <div>
                
-                <div className='nohistorytext-container'>No history</div>
+                <div className='nohistorytext-container'>No History</div>
             </div>
         )
     }
