@@ -10,17 +10,17 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Nav />
-        <Route path='/search/:query'>
+        <Route path='hackernews/search/:query'>
           <Search />
         </Route>
-        <Route exact path='/search'>
+        <Route exact path='hackernews/search'>
           <Search />
         </Route>
-        <Route exact path='/history'>
+        <Route exact path='hackernews/history'>
           <History />
         </Route>
         <Route exact path='/'>
-          <Redirect to="/search" />
+          <Redirect to="hackernews/search" />
         </Route>
        
       </BrowserRouter>
