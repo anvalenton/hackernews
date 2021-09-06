@@ -12,19 +12,18 @@ return (
             if (story.url) {
 
             return  <li key={uuidv4()}>
-                    <div className='title-div'>
-                    <a href={story.url} target="_blank" rel="noreferrer noopener">{story.title}</a><span className='author'> by {story.author}</span>
-                    </div>
-                    <div className='linkinfo-div'>
-                    <span>Posted: {story.created_at.slice(0,10)}</span>
-                    </div>
-
+                        <div className='title-div'>
+                            <a href={story.url} target="_blank" rel="noreferrer noopener">{story.title}</a>
+                            <span className='author'> by {story.author}</span>
+                        </div>
+                        <div className='linkinfo-div'>
+                            <span>Posted: {story.created_at.slice(0,10)}</span>
+                        </div>
                     </li>
-
-            }
+                    }
+            else {return null}   
             })}
-
-
+            
         </ul>
        
     </>

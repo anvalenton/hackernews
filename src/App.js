@@ -13,7 +13,7 @@ function App() {
         <Route path='/search/:query'>
           <Search />
         </Route>
-        <Route path='/search'>
+        <Route exact path='/search'>
           <Search />
         </Route>
         <Route exact path='/history'>

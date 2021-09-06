@@ -8,7 +8,7 @@ import { useParams} from "react-router-dom";
 const Search = () => {
 
 
-    const initialGETURL = 'http://hn.algolia.com/api/v1/search_by_date?tags=story';
+    const initialGETURL = 'https://hn.algolia.com/api/v1/search_by_date?tags=story';
 
     const {query} = useParams();
     const [searchValue, setSearchValue] = useState(() => (query? query: ''));
@@ -23,7 +23,7 @@ const Search = () => {
         if (searchTerm) {
            
             try {
-                const searchRes = await axios.get(`http://hn.algolia.com/api/v1/search?query=${searchTerm}&tags=story`)
+                const searchRes = await axios.get(`https://hn.algolia.com/api/v1/search?query=${searchTerm}&tags=story`)
                 setStories(searchRes.data.hits);
             }
             catch (e) {
