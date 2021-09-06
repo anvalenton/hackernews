@@ -90,3 +90,8 @@ input.placeholder {
 .searchhistory-container {
   margin-top: 15vh;
 }
+
+a {
+
+  font-size: 3vh;
+}

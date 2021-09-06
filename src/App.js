@@ -3,7 +3,7 @@ import './App.css';
 import Search from './Search.js';
 import History from './History';
 import Nav from './Nav';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route} from 'react-router-dom';
 
 function App() {
   return (
@@ -20,9 +20,9 @@ function App() {
           <History />
         </Route>
         <Route exact path='/'>
-          <Search />
+          <Redirect to="/search" />
         </Route>
-        
+        <Search />
       </BrowserRouter>
     </div>
   );
